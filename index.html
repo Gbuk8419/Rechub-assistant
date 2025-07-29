@@ -5,12 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rechub AI Assistant</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #111; color: #fff; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-    #chat-log { width: 100%; max-width: 500px; height: 400px; overflow-y: auto; border: 1px solid #333; padding: 10px; margin-bottom: 10px; background: #222; }
-    .assistant-message { margin: 5px 0; padding: 8px; border-radius: 5px; }
-    .assistant { background: #444; }
-    .user { background: #2b7cff; text-align: right; }
-    #chat-input { width: 100%; max-width: 500px; padding: 10px; border: none; border-radius: 5px; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      margin-bottom: 20px;
+    }
+    #chat-log {
+      width: 100%;
+      max-width: 500px;
+      height: 400px;
+      overflow-y: auto;
+      background: #222;
+      border: 1px solid #333;
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+    .assistant-message, .user-message {
+      margin: 5px 0;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+    .assistant-message {
+      background: #444;
+      align-self: flex-start;
+    }
+    .user-message {
+      background: #2b7cff;
+      align-self: flex-end;
+      text-align: right;
+    }
+    #chat-input {
+      width: 100%;
+      max-width: 500px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -26,21 +72,22 @@
         body: JSON.stringify({ message })
       });
       const data = await res.json();
-      addMessage("assistant", data.reply);
+      addMessage("assistant-message", data.reply);
     }
 
-    function addMessage(sender, text) {
+    function addMessage(className, text) {
       const div = document.createElement("div");
-      div.classList.add("assistant-message", sender);
+      div.className = className;
       div.textContent = text;
       document.getElementById("chat-log").appendChild(div);
+      document.getElementById("chat-log").scrollTop = document.getElementById("chat-log").scrollHeight;
     }
 
     const chatInput = document.getElementById("chat-input");
     chatInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") {
-        const msg = chatInput.value;
-        addMessage("user", msg);
+      if (e.key === "Enter" && chatInput.value.trim() !== "") {
+        const msg = chatInput.value.trim();
+        addMessage("user-message", msg);
         sendMessage(msg);
         chatInput.value = "";
       }
