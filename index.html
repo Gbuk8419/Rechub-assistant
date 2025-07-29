@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rechub AI Assistant</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #111; color: #fff; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+    #chat-log { width: 100%; max-width: 500px; height: 400px; overflow-y: auto; border: 1px solid #333; padding: 10px; margin-bottom: 10px; background: #222; }
+    .assistant-message { margin: 5px 0; padding: 8px; border-radius: 5px; }
+    .assistant { background: #444; }
+    .user { background: #2b7cff; text-align: right; }
+    #chat-input { width: 100%; max-width: 500px; padding: 10px; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Rechub AI Assistant</h1>
+  <div id="chat-log"></div>
+  <input type="text" id="chat-input" placeholder="Ask me anything about recruitment..." />
+
+  <script>
+    async function sendMessage(message) {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message })
+      });
+      const data = await res.json();
+      addMessage("assistant", data.reply);
+    }
+
+    function addMessage(sender, text) {
+      const div = document.createElement("div");
+      div.classList.add("assistant-message", sender);
+      div.textContent = text;
+      document.getElementById("chat-log").appendChild(div);
+    }
+
+    const chatInput = document.getElementById("chat-input");
+    chatInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") {
+        const msg = chatInput.value;
+        addMessage("user", msg);
+        sendMessage(msg);
+        chatInput.value = "";
+      }
+    });
+  </script>
+</body>
+</html>
