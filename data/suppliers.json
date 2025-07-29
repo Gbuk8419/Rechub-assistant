@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Bullhorn",
+    "logo": "https://img.logo.dev/bullhorn.com?token=pk_ch3u3tWWSjOKgUt7i53JHg&removeBg=true",
+    "category": "CRM",
+    "description": "Bullhorn provides cloud-based CRM and operations software for the recruitment industry.",
+    "website": "https://www.bullhorn.com"
+  },
+  {
+    "name": "JobAdder",
+    "logo": "https://img.logo.dev/jobadder.com?token=pk_ch3u3tWWSjOKgUt7i53JHg&removeBg=true",
+    "category": "ATS",
+    "description": "JobAdder is an Applicant Tracking System (ATS) designed for recruitment agencies and HR teams.",
+    "website": "https://www.jobadder.com"
+  },
+  {
+    "name": "Vincere",
+    "logo": "https://img.logo.dev/vincere.io?token=pk_ch3u3tWWSjOKgUt7i53JHg&removeBg=true",
+    "category": "Recruitment OS",
+    "description": "Vincere is a recruitment operating system built for recruitment agencies to streamline workflows.",
+    "website": "https://www.vincere.io"
+  }
+]
