@@ -23,3 +23,13 @@ export default async function handler(req, res) {
     res.status(500).json({ error: "Failed to connect to OpenAI" });
   }
 }
+async function sendMessage(userMessage) {
+  const response = await fetch("/api/chat", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: userMessage }),
+  });
+
+  const data = await response.json();
+  addMessage("assistant", data.reply); // Shows both AI replies and debug messages
+}
